@@ -4,6 +4,8 @@ import FileService from "../services/FileService";
 import { LoaderContext } from "../context/loaderContext";
 import { FilesContext } from "../context/filesContext";
 import { useAuth } from "react-oidc-context";
+import DashImg from "../assets/images/dashboard.png";
+import FilesImg from "../assets/images/document.png";
 
 function SideBar() {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -17,7 +19,10 @@ function SideBar() {
     if (file) {
       const formData = new FormData();
       formData.append("file", file);
-      const insertedFile = await FileService.uploadFile(formData, user?.profile.sub!);
+      const insertedFile = await FileService.uploadFile(
+        formData,
+        user?.profile.sub as string
+      );
       setFiles((prevFiles) => [insertedFile, ...prevFiles]);
     }
     setIsLoading(false);
@@ -58,8 +63,13 @@ function SideBar() {
         <nav className="iq-sidebar-menu">
           <ul id="iq-sidebar-toggle" className="iq-menu">
             <li className="active">
-              <Link to="/" className="">
-                <i className="las la-home iq-arrow-left"></i>
+              <Link to="/" className="flex">
+                <img
+                  className="mr-2"
+                  src={DashImg}
+                  alt=""
+                  style={{ width: "16px" }}
+                />
                 <span>Dashboard</span>
               </Link>
               <ul
@@ -70,7 +80,12 @@ function SideBar() {
             </li>
             <li className=" ">
               <Link to="/files" className="">
-                <i className="lar la-file-alt iq-arrow-left"></i>
+                <img
+                  className="mr-2"
+                  src={FilesImg}
+                  alt=""
+                  style={{ width: "16px" }}
+                />
                 <span>Files</span>
               </Link>
               <ul
