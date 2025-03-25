@@ -19,8 +19,8 @@ function DashboardFiles({ files }: { files: FileType[] }) {
           </div>
         </div>
       </div>
-      {files.map((file) => (
-        <FileCard key={file.id} file={file} />
+      {files.map((file, key) => (
+        <FileCard key={key} file={file} />
       ))}
     </>
   );
