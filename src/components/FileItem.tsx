@@ -1,7 +1,15 @@
 import { FileType } from "../types";
 import FileDropDown from "./FileDropDown";
 
-function FileItem({ file, onDelete }: { file: FileType; onDelete: () => void }) {
+function FileItem({
+  file,
+  onDelete,
+  onShare,
+}: {
+  file: FileType;
+  onDelete: () => void;
+  onShare: () => void;
+}) {
   return (
     <tr>
       <td>
@@ -22,11 +30,16 @@ function FileItem({ file, onDelete }: { file: FileType; onDelete: () => void }) 
           </div>
         </div>
       </td>
-      <td>Me</td>
-      <td>{new Date(file.lastModified).toLocaleString()}</td>
+      <td>{file.isShared ? file.sharedBy : "Me"}</td>
+      <td>{new Date(file.lastModified as string).toLocaleString()}</td>
       <td>{(file.size / 1024).toFixed(2)} KB</td>
       <td>
-        <FileDropDown onDelete={onDelete} />
+        <FileDropDown
+          onDelete={onDelete}
+          id={file.name}
+          onShare={onShare}
+          isShared={file.isShared}
+        />
       </td>
     </tr>
   );

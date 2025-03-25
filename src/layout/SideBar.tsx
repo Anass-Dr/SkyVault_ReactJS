@@ -1,17 +1,26 @@
-import { useRef } from "react";
+import { useRef, useContext } from "react";
 import { Link } from "react-router-dom";
 import FileService from "../services/FileService";
+import { LoaderContext } from "../context/loaderContext";
+import { FilesContext } from "../context/filesContext";
+import { useAuth } from "react-oidc-context";
 
 function SideBar() {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const { setIsLoading } = useContext(LoaderContext);
+  const { setFiles } = useContext(FilesContext);
+  const { user } = useAuth();
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsLoading(true);
     const file = e.target.files?.[0];
     if (file) {
       const formData = new FormData();
       formData.append("file", file);
-      await FileService.uploadFile(formData);
+      const insertedFile = await FileService.uploadFile(formData, user?.profile.sub!);
+      setFiles((prevFiles) => [insertedFile, ...prevFiles]);
     }
+    setIsLoading(false);
   };
 
   return (
@@ -31,31 +40,19 @@ function SideBar() {
       <div className="data-scrollbar" data-scroll="1">
         <div className="new-create select-dropdown input-prepend input-append">
           <div className="btn-group">
-            <div data-toggle="dropdown">
-              <div className="search-query selet-caption" style={{ cursor: "pointer" }}>
-                <i className="las la-plus pr-2"></i>Create New
-              </div>
-              <span className="search-replace"></span>
-              <span className="caret"></span>
+            <div
+              className="search-query selet-caption"
+              onClick={() => fileInputRef.current?.click()}
+              style={{ cursor: "pointer" }}
+            >
+              <input
+                type="file"
+                hidden
+                ref={fileInputRef}
+                onChange={handleFileUpload}
+              />
+              <i className="las la-plus pr-2"></i>Upload file
             </div>
-            <ul className="dropdown-menu">
-              <li style={{ cursor: "pointer" }}>
-                <div className="item">
-                  <i className="ri-folder-add-line pr-3"></i>New Folder
-                </div>
-              </li>
-              <li onClick={() => fileInputRef.current?.click()} style={{ cursor: "pointer" }}>
-                <div className="item">
-                  <input
-                    type="file"
-                    className="hidden"
-                    ref={fileInputRef}
-                    onChange={handleFileUpload}
-                  />
-                  <i className="ri-file-upload-line pr-3"></i>Upload File
-                </div>
-              </li>
-            </ul>
           </div>
         </div>
         <nav className="iq-sidebar-menu">
@@ -70,49 +67,6 @@ function SideBar() {
                 className="iq-submenu collapse"
                 data-parent="#iq-sidebar-toggle"
               ></ul>
-            </li>
-            <li className=" ">
-              <a
-                href="#mydrive"
-                className="collapsed"
-                data-toggle="collapse"
-                aria-expanded="false"
-              >
-                <i className="las la-hdd"></i>
-                <span>My Drive</span>
-                <i className="las la-angle-right iq-arrow-right arrow-active"></i>
-                <i className="las la-angle-down iq-arrow-right arrow-hover"></i>
-              </a>
-              <ul
-                id="mydrive"
-                className="iq-submenu collapse"
-                data-parent="#iq-sidebar-toggle"
-              >
-                <li className=" ">
-                  <a href="page-alexa.html">
-                    <i className="lab la-blogger-b"></i>
-                    <span>Alexa Workshop</span>
-                  </a>
-                </li>
-                <li className=" ">
-                  <a href="page-android.html">
-                    <i className="las la-share-alt"></i>
-                    <span>Android</span>
-                  </a>
-                </li>
-                <li className=" ">
-                  <a href="page-brightspot.html">
-                    <i className="las la-icons"></i>
-                    <span>Brightspot</span>
-                  </a>
-                </li>
-                <li className=" ">
-                  <a href="page-ionic.html">
-                    <i className="las la-icons"></i>
-                    <span>Ionic Chat App</span>
-                  </a>
-                </li>
-              </ul>
             </li>
             <li className=" ">
               <Link to="/files" className="">

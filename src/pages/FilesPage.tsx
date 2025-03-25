@@ -3,14 +3,28 @@ import FileCard from "../components/FileCard";
 import FileService from "../services/FileService";
 import FileItem from "../components/FileItem";
 import { FilesContext } from "../context/filesContext";
+import { LoaderContext } from "../context/loaderContext";
+import FileSharing from "../components/FileSharing";
+import { useAuth } from "react-oidc-context";
 
 function FilesPage() {
   const { files, setFiles } = useContext(FilesContext);
-  const [view, setView] = useState<"grid" | "list">("grid");
+  const [view, setView] = useState<"grid" | "list">("list");
+  const [showSharing, setShowSharing] = useState(false);
+  const [selectedFile, setSelectedFile] = useState("");
+  const { setIsLoading } = useContext(LoaderContext);
+  const { user } = useAuth()
 
   const handleDelete = async (id: string) => {
-    await FileService.deleteFile(id);
+    setIsLoading(true);
+    await FileService.deleteFile(id, user?.profile.sub as string);
     setFiles(files.filter((file) => file.name !== id));
+    setIsLoading(false);
+  };
+
+  const handleShare = (id: string) => {
+    setShowSharing(true);
+    setSelectedFile(id);
   };
 
   return (
@@ -20,7 +34,7 @@ function FilesPage() {
           <div className="d-flex align-items-center justify-content-between welcome-content mb-3">
             <h4>All Files</h4>
             <div className="d-flex align-items-center">
-              <div className="list-grid-toggle mr-4">
+              <div className="list-grid-toggle mr-4" style={{ cursor: "pointer" }}>
                 <span
                   className={`icon i-grid ${view === "grid" ? "icon-grid" : ""} cursor-pointer`}
                   onClick={() => setView("list")}
@@ -115,6 +129,7 @@ function FilesPage() {
                           key={index}
                           file={file}
                           onDelete={() => handleDelete(file.name)}
+                          onShare={() => handleShare(file.name)}
                         />
                       ))}
                     </tbody>
@@ -125,6 +140,12 @@ function FilesPage() {
           </div>
         </div>
       </div>
+      {showSharing && (
+        <FileSharing
+          onClose={() => setShowSharing(false)}
+          fileId={selectedFile}
+        />
+      )}
     </div>
   );
 }

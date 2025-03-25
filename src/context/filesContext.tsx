@@ -1,10 +1,11 @@
 import { createContext, useState, useEffect } from "react";
 import { FileType } from "../types";
 import FileService from "../services/FileService";
+import { useAuth } from "react-oidc-context";
 
 type FilesContextType = {
   files: FileType[];
-  setFiles: (files: FileType[]) => void;
+  setFiles: React.Dispatch<React.SetStateAction<FileType[]>>;
 };
 
 export const FilesContext = createContext<FilesContextType>({
@@ -14,14 +15,16 @@ export const FilesContext = createContext<FilesContextType>({
 
 export const FilesProvider = ({ children }: { children: React.ReactNode }) => {
   const [files, setFiles] = useState<FileType[]>([]);
+  const { user } = useAuth();
 
   useEffect(() => {
+    if (!user) return;
     const fetchFiles = async () => {
-      const files = await FileService.getFiles();
+      const files = await FileService.getFiles(user?.profile.sub || "");
       setFiles(files);
     };
     fetchFiles();
-  }, []);
+  }, [user]);
 
   return (
     <FilesContext.Provider value={{ files, setFiles }}>
