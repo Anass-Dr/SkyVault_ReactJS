@@ -1,7 +1,9 @@
+import Profile from "../components/Profile";
+
 function Header() {
   return (
     <div className="iq-top-navbar">
-      <div className="iq-navbar-custom">
+      <div className="iq-navbar-custom mt-3">
         <nav className="navbar navbar-expand-lg navbar-light p-0">
           <div className="iq-navbar-logo d-flex align-items-center justify-content-between">
             <i className="ri-menu-line wrapper-menu"></i>
@@ -37,54 +39,6 @@ function Header() {
                     </a>
                     <span className="caret"></span>
                   </label>
-                  <ul className="dropdown-menu">
-                    <li>
-                      <a href="#">
-                        <div className="item">
-                          <i className="far fa-file-pdf bg-info"></i>PDFs
-                        </div>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <div className="item">
-                          <i className="far fa-file-alt bg-primary"></i>
-                          Documents
-                        </div>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <div className="item">
-                          <i className="far fa-file-excel bg-success"></i>
-                          Spreadsheet
-                        </div>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <div className="item">
-                          <i className="far fa-file-powerpoint bg-danger"></i>
-                          Presentation
-                        </div>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <div className="item">
-                          <i className="far fa-file-image bg-warning"></i>Photos
-                          & Images
-                        </div>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <div className="item">
-                          <i className="far fa-file-video bg-info"></i>Videos
-                        </div>
-                      </a>
-                    </li>
-                  </ul>
                 </div>
               </div>
             </form>
@@ -160,78 +114,6 @@ function Header() {
                     </form>
                   </div>
                 </li>
-                <li className="nav-item nav-icon dropdown">
-                  <a
-                    href="#"
-                    className="search-toggle dropdown-toggle"
-                    id="dropdownMenuButton01"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    <i className="ri-question-line"></i>
-                  </a>
-                  <div
-                    className="iq-sub-dropdown dropdown-menu"
-                    aria-labelledby="dropdownMenuButton01"
-                  >
-                    <div className="card shadow-none m-0">
-                      <div className="card-body p-0">
-                        <div className="p-3">
-                          <a href="#" className="iq-sub-card pt-0">
-                            <i className="ri-questionnaire-line"></i>Help
-                          </a>
-                          <a href="#" className="iq-sub-card">
-                            <i className="ri-recycle-line"></i>Training
-                          </a>
-                          <a href="#" className="iq-sub-card">
-                            <i className="ri-refresh-line"></i>Updates
-                          </a>
-                          <a href="#" className="iq-sub-card">
-                            <i className="ri-service-line"></i>Terms and Policy
-                          </a>
-                          <a href="#" className="iq-sub-card">
-                            <i className="ri-feedback-line"></i>Send Feedback
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li className="nav-item nav-icon dropdown">
-                  <a
-                    href="#"
-                    className="search-toggle dropdown-toggle"
-                    id="dropdownMenuButton02"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    <i className="ri-settings-3-line"></i>
-                  </a>
-                  <div
-                    className="iq-sub-dropdown dropdown-menu"
-                    aria-labelledby="dropdownMenuButton02"
-                  >
-                    <div className="card shadow-none m-0">
-                      <div className="card-body p-0">
-                        <div className="p-3">
-                          <a href="#" className="iq-sub-card pt-0">
-                            <i className="ri-settings-3-line"></i> Settings
-                          </a>
-                          <a href="#" className="iq-sub-card">
-                            <i className="ri-hard-drive-line"></i> Get Drive for
-                            desktop
-                          </a>
-                          <a href="#" className="iq-sub-card">
-                            <i className="ri-keyboard-line"></i> Keyboard
-                            Shortcuts
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </li>
                 <li className="nav-item nav-icon dropdown caption-content">
                   <a
                     href="#"
@@ -243,94 +125,7 @@ function Header() {
                   >
                     <div className="caption bg-primary line-height">P</div>
                   </a>
-                  <div
-                    className="iq-sub-dropdown dropdown-menu"
-                    aria-labelledby="dropdownMenuButton03"
-                  >
-                    <div className="card mb-0">
-                      <div className="card-header d-flex justify-content-between align-items-center mb-0">
-                        <div className="header-title">
-                          <h4 className="card-title mb-0">Profile</h4>
-                        </div>
-                        <div className="close-data text-right badge badge-primary cursor-pointer">
-                          <i className="ri-close-fill"></i>
-                        </div>
-                      </div>
-                      <div className="card-body">
-                        <div className="profile-header">
-                          <div className="cover-container text-center">
-                            <div className="rounded-circle profile-icon bg-primary mx-auto d-block">
-                              P<a href="#"> </a>
-                            </div>
-                            <div className="profile-detail mt-3">
-                              <h5>
-                                <a href="#">
-                                  Panny Marco
-                                </a>
-                              </h5>
-                              <p>pannymarco@gmail.com</p>
-                            </div>
-                            <a
-                              href="auth-sign-in.html"
-                              className="btn btn-primary"
-                            >
-                              Sign Out
-                            </a>
-                          </div>
-                          <div className="profile-details mt-4 pt-4 border-top">
-                            <div className="media align-items-center mb-3">
-                              <div className="rounded-circle iq-card-icon-small bg-primary">
-                                A
-                              </div>
-                              <div className="media-body ml-3">
-                                <div className="media justify-content-between">
-                                  <h6 className="mb-0">Anna Mull</h6>
-                                  <p className="mb-0 font-size-12">
-                                    <i>Signed Out</i>
-                                  </p>
-                                </div>
-                                <p className="mb-0 font-size-12">
-                                  annamull@gmail.com
-                                </p>
-                              </div>
-                            </div>
-                            <div className="media align-items-center mb-3">
-                              <div className="rounded-circle iq-card-icon-small bg-success">
-                                K
-                              </div>
-                              <div className="media-body ml-3">
-                                <div className="media justify-content-between">
-                                  <h6 className="mb-0">King Poilin</h6>
-                                  <p className="mb-0 font-size-12">
-                                    <i>Signed Out</i>
-                                  </p>
-                                </div>
-                                <p className="mb-0 font-size-12">
-                                  kingpoilin@gmail.com
-                                </p>
-                              </div>
-                            </div>
-                            <div className="media align-items-center">
-                              <div className="rounded-circle iq-card-icon-small bg-danger">
-                                D
-                              </div>
-                              <div className="media-body ml-3">
-                                <div className="media justify-content-between">
-                                  <h6 className="mb-0">Devid Worner</h6>
-                                  <p className="mb-0 font-size-12">
-                                    <i>Signed Out</i>
-                                  </p>
-                                </div>
-                                <p className="mb-0 font-size-12">
-                                  devidworner@gmail.com
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <Profile />
                 </li>
               </ul>
             </div>
