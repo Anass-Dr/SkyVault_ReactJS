@@ -1,7 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import withAuth from "../components/WithAuth";
-import { useContext, useEffect, useState } from "react";
-import { LoaderContext } from "../context/loaderContext";
+import { useEffect, useState } from "react";
 import FileService from "../services/FileService";
 import { useAuth } from "react-oidc-context";
 import FilePreview from "../components/FilePreview";
